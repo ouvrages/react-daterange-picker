@@ -12,7 +12,7 @@ import {
 } from "date-fns";
 import { DateRange, NavigationAction, DefinedRange } from "./types";
 import Menu from "./components/Menu";
-import { defaultRanges } from "./defaults";
+import { defaultRanges, defaultLocale } from "./defaults";
 import { parseOptionalDate } from "./utils";
 
 type Marker = symbol;
@@ -41,6 +41,7 @@ interface DateRangePickerProps {
 	minDate?: Date | string;
 	maxDate?: Date | string;
 	onChange: (dateRange: DateRange) => void;
+  locale: string;
 }
 
 const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props => {
@@ -52,6 +53,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 		initialDateRange,
 		minDate,
 		maxDate,
+    locale,
 		definedRanges = defaultRanges
 	} = props;
 
@@ -159,6 +161,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 			setDateRange={setDateRangeValidated}
 			helpers={helpers}
 			handlers={handlers}
+      locale={locale || defaultLocale}
 		/>
 	) : null;
 };

@@ -11,6 +11,7 @@ import React from "react";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import { setMonth, getMonth, setYear, getYear } from "date-fns";
+import locales from "../locales"
 
 interface HeaderProps extends WithStyles<typeof styles> {
 	date: Date;
@@ -19,6 +20,7 @@ interface HeaderProps extends WithStyles<typeof styles> {
 	prevDisabled: boolean;
 	onClickNext: () => void;
 	onClickPrevious: () => void;
+  locale: string;
 }
 
 const styles = createStyles({
@@ -32,21 +34,6 @@ const styles = createStyles({
 		}
 	}
 });
-
-const MONTHS = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"June",
-	"July",
-	"Aug",
-	"Sept",
-	"Oct",
-	"Nov",
-	"Dec"
-];
 
 const generateYears = (relativeTo: Date, count: number) => {
 	const half = Math.floor(count / 2);
@@ -62,7 +49,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 	nextDisabled,
 	prevDisabled,
 	onClickNext,
-	onClickPrevious
+  onClickPrevious,
+  locale,
 }) => {
 	const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDate(setMonth(date, parseInt(event.target.value)));
@@ -87,7 +75,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 					value={getMonth(date)}
 					onChange={handleMonthChange}
 					MenuProps={{ disablePortal: true }}>
-					{MONTHS.map((month, idx) => (
+          {locales[locale]["months"].map((month: string, idx: number) => (
 						<MenuItem key={month} value={idx}>
 							{month}
 						</MenuItem>

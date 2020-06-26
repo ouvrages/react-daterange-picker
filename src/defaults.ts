@@ -49,3 +49,5 @@ const getDefaultRanges = (date: Date): DefinedRange[] => [
 ];
 
 export const defaultRanges = getDefaultRanges(new Date());
+
+export const defaultLocale = "en"

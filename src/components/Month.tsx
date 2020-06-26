@@ -20,8 +20,7 @@ import {
 import Header from "./Header";
 import Day from "./Day";
 import { NavigationAction, DateRange } from "../types";
-
-const WEEK_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+import locales from "../locales";
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -57,6 +56,7 @@ interface MonthProps extends WithStyles<typeof styles> {
 		onDayHover: (day: Date) => void;
 		onMonthNavigate: (marker: symbol, action: NavigationAction) => void;
 	};
+  locale: string;
 }
 
 const Month: React.FunctionComponent<MonthProps> = props => {
@@ -69,7 +69,8 @@ const Month: React.FunctionComponent<MonthProps> = props => {
 		marker,
 		setValue: setDate,
 		minDate,
-		maxDate
+		maxDate,
+    locale
 	} = props;
 
 	const [back, forward] = props.navState;
@@ -85,6 +86,7 @@ const Month: React.FunctionComponent<MonthProps> = props => {
 						handlers.onMonthNavigate(marker, NavigationAction.Previous)
 					}
 					onClickNext={() => handlers.onMonthNavigate(marker, NavigationAction.Next)}
+          locale={locale}
 				/>
 
 				<Grid
@@ -93,7 +95,7 @@ const Month: React.FunctionComponent<MonthProps> = props => {
 					direction="row"
 					justify="space-between"
 					className={classes.weekDaysContainer}>
-					{WEEK_DAYS.map(day => (
+          {locales[locale]["week_days"].map((day: string) => (
 						<Typography color="textSecondary" key={day} variant="caption">
 							{day}
 						</Typography>

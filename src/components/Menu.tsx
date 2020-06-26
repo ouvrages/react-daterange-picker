@@ -15,6 +15,7 @@ import Month from "./Month";
 import DefinedRanges from "./DefinedRanges";
 import { DateRange, DefinedRange, Setter, NavigationAction } from "../types";
 import { MARKERS } from "..";
+import locales from "../locales"
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -49,6 +50,7 @@ interface MenuProps extends WithStyles<typeof styles> {
 		onDayHover: (day: Date) => void;
 		onMonthNavigate: (marker: symbol, action: NavigationAction) => void;
 	};
+  locale: string;
 }
 
 const Menu: React.FunctionComponent<MenuProps> = props => {
@@ -64,7 +66,8 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 		setSecondMonth,
 		setDateRange,
 		helpers,
-		handlers
+    handlers,
+    locale
 	} = props;
 	const { startDate, endDate } = dateRange;
 	const canNavigateCloser = differenceInCalendarMonths(secondMonth, firstMonth) >= 2;
@@ -76,7 +79,7 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 					<Grid container className={classes.header} alignItems="center">
 						<Grid item className={classes.headerItem}>
 							<Typography variant="subtitle1">
-								{startDate ? format(startDate, "MMMM DD, YYYY") : "Start Date"}
+								{startDate ? format(startDate, "MMMM DD, YYYY") : locales[locale]["start_date"]}
 							</Typography>
 						</Grid>
 						<Grid item className={classes.headerItem}>
@@ -84,7 +87,7 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 						</Grid>
 						<Grid item className={classes.headerItem}>
 							<Typography variant="subtitle1">
-								{endDate ? format(endDate, "MMMM DD, YYYY") : "End Date"}
+								{endDate ? format(endDate, "MMMM DD, YYYY") : locales[locale]["end_date"]}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -96,6 +99,7 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 							setValue={setFirstMonth}
 							navState={[true, canNavigateCloser]}
 							marker={MARKERS.FIRST_MONTH}
+              locale={locale}
 						/>
 						<div className={classes.divider} />
 						<Month
@@ -104,6 +108,7 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 							setValue={setSecondMonth}
 							navState={[canNavigateCloser, true]}
 							marker={MARKERS.SECOND_MONTH}
+              locale={locale}
 						/>
 					</Grid>
 				</Grid>

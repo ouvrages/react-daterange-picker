@@ -95,4 +95,6 @@ Name | Type | Required | Default value | Description
 `maxDate` | `Date | string` | | 10 years from now | max date allowed in range
 `onChange` | `(DateRange) => void` | _required_ | - | handler function for providing selected date range
 `definedRanges` | `DefinedRange[]` | | - | custom defined ranges to show in the list
+`locale` | `string` | | "en" | i18n
+
 
