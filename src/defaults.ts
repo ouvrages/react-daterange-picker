@@ -10,44 +10,46 @@ import {
 	addMonths
 } from "date-fns";
 
-const getDefaultRanges = (date: Date): DefinedRange[] => [
+import locales from "./locales";
+
+const getDefaultRanges = (date: Date, locale: string): DefinedRange[] => [
 	{
-		label: "Today",
+		label: locales[locale]["today"],
 		startDate: date,
 		endDate: date
 	},
 	{
-		label: "Yesterday",
+		label: locales[locale]["yesterday"],
 		startDate: addDays(date, -1),
 		endDate: addDays(date, -1)
 	},
 	{
-		label: "This Week",
+		label: locales[locale]["this_week"],
 		startDate: startOfWeek(date),
 		endDate: endOfWeek(date)
 	},
 	{
-		label: "Last Week",
+		label: locales[locale]["last_week"],
 		startDate: startOfWeek(addWeeks(date, -1)),
 		endDate: endOfWeek(addWeeks(date, -1))
 	},
 	{
-		label: "Last 7 Days",
+		label: locales[locale]["last_7_days"],
 		startDate: addWeeks(date, -1),
 		endDate: date
 	},
 	{
-		label: "This Month",
+		label: locales[locale]["this_month"],
 		startDate: startOfMonth(date),
 		endDate: endOfMonth(date)
 	},
 	{
-		label: "Last Month",
+		label: locales[locale]["last_month"],
 		startDate: startOfMonth(addMonths(date, -1)),
 		endDate: endOfMonth(addMonths(date, -1))
 	}
 ];
 
-export const defaultRanges = getDefaultRanges(new Date());
+export const defaultRanges = (locale: string): DefinedRange[] => getDefaultRanges(new Date(), locale);
 
 export const defaultLocale = "en"
